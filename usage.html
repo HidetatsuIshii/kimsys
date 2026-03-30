@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary-bg: #f4f7f6;
-            --header-green: #9edb85; /* 写真の緑色のイメージ */
+            --header-green: #9edb85; 
             --border-color: #999;
             --row-even: #f9f9f9;
             --text-red: #d32f2f;
@@ -25,6 +25,14 @@
             margin-bottom: 10px;
             color: #0066cc;
             text-decoration: none;
+        }
+
+        /* ユーザー情報バー */
+        .user-info-bar {
+            text-align: right;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: #555;
         }
 
         /* 上部メニューボタン */
@@ -46,7 +54,7 @@
         }
 
         .menu-btn:hover { background-color: #8cc974; }
-        .menu-btn img, .menu-btn .icon { font-size: 40px; display: block; margin-bottom: 5px; }
+        .menu-btn .icon { font-size: 40px; display: block; margin-bottom: 5px; }
 
         /* 利用表 */
         .table-container {
@@ -92,15 +100,9 @@
 </head>
 <body>
 
-    <script>
-        (function() {
-            const userName = localStorage.getItem('userName');
-            if (!userName) {
-                alert("ログインが必要です。");
-                window.location.href = 'index.html';
-            }
-        })();
-    </script>
+    <div class="user-info-bar">
+        ログイン中: <strong id="display-user-name"></strong> さん
+    </div>
 
     <a href="index.html" class="back-link">← メインメニューに戻る</a>
 
@@ -131,6 +133,66 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        const AUTO_LOGOUT_TIME = 10 * 60 * 1000; // 10分
+        const HEARTBEAT_INTERVAL = 2 * 60 * 1000; // 2分
+
+        // ページ読み込み時のチェック
+        (function() {
+            const userName = localStorage.getItem('userName');
+            const sessionId = localStorage.getItem('sessionId');
+            
+            if (!userName || !sessionId) {
+                alert("セッションが切れたか、ログインしていません。");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            document.getElementById('display-user-name').innerText = userName;
+            startMonitoring();
+        })();
+
+        function startMonitoring() {
+            // アクティビティ記録の初期化
+            localStorage.setItem('lastActivity', Date.now());
+
+            // 操作検知（マウス移動、キー入力など）
+            ['mousedown', 'keydown', 'touchstart', 'mousemove'].forEach(event => {
+                window.addEventListener(event, () => {
+                    localStorage.setItem('lastActivity', Date.now());
+                });
+            });
+
+            // 10分無操作チェック
+            setInterval(() => {
+                const lastActive = localStorage.getItem('lastActivity');
+                if (Date.now() - lastActive > AUTO_LOGOUT_TIME) {
+                    alert("10分間操作がなかったため、自動ログアウトしました。");
+                    handleLogout();
+                }
+            }, 10000);
+
+            // GASへ「利用中」を定期通知
+            setInterval(async () => {
+                const sid = localStorage.getItem('sessionId');
+                if (sid && typeof GAS_URL !== 'undefined') {
+                    try {
+                        await fetch(`${GAS_URL}?action=heartbeat&sessionId=${sid}`);
+                    } catch(e) { console.error("Heartbeat error"); }
+                }
+            }, HEARTBEAT_INTERVAL);
+        }
+
+        async function handleLogout() {
+            const sid = localStorage.getItem('sessionId');
+            if (sid && typeof GAS_URL !== 'undefined') {
+                await fetch(`${GAS_URL}?action=logout&sessionId=${sid}`).catch(()=>{});
+            }
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
 
     <script src="usage.js"></script>
 </body>
