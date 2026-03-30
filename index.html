@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アプリ総合窓口 - アライ電機</title>
+    <style>
+        :root {
+            --primary-bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --accent-color: #a084ca; /* 写真の紫色のイメージ */
+            --text-main: #333;
+            --text-sub: #666;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 検索窓エリア */
+        .search-panel {
+            background-color: #fff9c4; /* 写真の薄黄色のイメージ */
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr 100px;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-panel input, .search-panel select {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-clear {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* アプリリストエリア */
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .app-card:hover {
+            background-color: #f0f0f0;
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            background: #eee;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .app-info {
+            flex-grow: 1;
+        }
+
+        .app-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .app-meta {
+            display: flex;
+            gap: 40px;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        .meta-label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>アプリ総合窓口</h2>
+
+    <div class="search-panel">
+        <div>検索窓口</div>
+        <input type="text" placeholder="アプリ名">
+        <input type="text" placeholder="五十音/ジャンル">
+        <button class="btn-clear">条件削除</button>
+    </div>
+
+    <div class="app-list">
+        
+        <a href="#" class="app-card">
+            <div class="app-icon">📊</div>
+            <div class="app-info">
+                <div class="app-title">ITS価格表</div>
+                <div class="app-meta">
+                    <span><span class="meta-label">あ行</span></span>
+                    <span><span class="meta-label">業務効率化</span></span>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="app-card">
+            <div class="app-icon">📓</div>
+            <div class="app-info">
+                <div class="app-title">顧客ノート</div>
+                <div class="app-meta">
+                    <span><span class="meta-label">か行</span></span>
+                    <span><span class="meta-label">集計/分析</span></span>
+                </div>
+            </div>
+        </a>
+
+        <a href="usage.html" class="app-card">
+            <div class="app-icon">📚</div>
+            <div class="app-info">
+                <div class="app-title">パーツカタログ利用管理</div>
+                <div class="app-meta">
+                    <span><span class="meta-label">は行</span></span>
+                    <span><span class="meta-label">タスク管理</span></span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>
