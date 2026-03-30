@@ -8,7 +8,7 @@
         :root {
             --primary-bg: #f4f7f6;
             --card-bg: #ffffff;
-            --accent-color: #a084ca; /* 写真の紫色のイメージ */
+            --accent-color: #a084ca; 
             --text-main: #333;
             --text-sub: #666;
             --border-color: #ddd;
@@ -27,9 +27,51 @@
             margin: 0 auto;
         }
 
+        /* ログインセクションのスタイル */
+        #login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* メニューセクションの初期表示は非表示 */
+        #menu-section {
+            display: none;
+        }
+
         /* 検索窓エリア */
         .search-panel {
-            background-color: #fff9c4; /* 写真の薄黄色のイメージ */
+            background-color: #fff9c4;
             border: 1px solid var(--border-color);
             padding: 15px;
             margin-bottom: 20px;
@@ -107,57 +149,91 @@
         .meta-label {
             margin-right: 10px;
         }
+
+        .user-info {
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>アプリ総合窓口</h2>
-
-    <div class="search-panel">
-        <div>検索窓口</div>
-        <input type="text" placeholder="アプリ名">
-        <input type="text" placeholder="五十音/ジャンル">
-        <button class="btn-clear">条件削除</button>
+    <div id="login-section">
+        <div class="login-box">
+            <h3>社内システム ログイン</h3>
+            <input type="text" id="login-id" placeholder="社員番号">
+            <input type="password" id="login-pw" placeholder="パスワード">
+            <button class="btn-login" onclick="login()">ログイン</button>
+        </div>
     </div>
 
-    <div class="app-list">
-        
-        <a href="#" class="app-card">
-            <div class="app-icon">📊</div>
-            <div class="app-info">
-                <div class="app-title">ITS価格表</div>
-                <div class="app-meta">
-                    <span><span class="meta-label">あ行</span></span>
-                    <span><span class="meta-label">業務効率化</span></span>
-                </div>
-            </div>
-        </a>
+    <div id="menu-section">
+        <div class="user-info">ログイン中: <span id="display-user-name"></span></div>
+        <h2>アプリ総合窓口</h2>
 
-        <a href="#" class="app-card">
-            <div class="app-icon">📓</div>
-            <div class="app-info">
-                <div class="app-title">顧客ノート</div>
-                <div class="app-meta">
-                    <span><span class="meta-label">か行</span></span>
-                    <span><span class="meta-label">集計/分析</span></span>
-                </div>
-            </div>
-        </a>
+        <div class="search-panel">
+            <div>検索窓口</div>
+            <input type="text" placeholder="アプリ名">
+            <input type="text" placeholder="五十音/ジャンル">
+            <button class="btn-clear">条件削除</button>
+        </div>
 
-        <a href="usage.html" class="app-card">
-            <div class="app-icon">📚</div>
-            <div class="app-info">
-                <div class="app-title">パーツカタログ利用管理</div>
-                <div class="app-meta">
-                    <span><span class="meta-label">は行</span></span>
-                    <span><span class="meta-label">タスク管理</span></span>
+        <div class="app-list">
+            <a href="#" class="app-card">
+                <div class="app-icon">📊</div>
+                <div class="app-info">
+                    <div class="app-title">ITS価格表</div>
+                    <div class="app-meta">
+                        <span><span class="meta-label">あ行</span></span>
+                        <span><span class="meta-label">業務効率化</span></span>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
 
+            <a href="#" class="app-card">
+                <div class="app-icon">📓</div>
+                <div class="app-info">
+                    <div class="app-title">顧客ノート</div>
+                    <div class="app-meta">
+                        <span><span class="meta-label">か行</span></span>
+                        <span><span class="meta-label">集計/分析</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="usage.html" class="app-card">
+                <div class="app-icon">📚</div>
+                <div class="app-info">
+                    <div class="app-title">パーツカタログ利用管理</div>
+                    <div class="app-meta">
+                        <span><span class="meta-label">は行</span></span>
+                        <span><span class="meta-label">タスク管理</span></span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
+
+<script src="login.js"></script>
+<script>
+    // ページ読み込み時にログイン状態をチェック
+    window.onload = function() {
+        const userName = localStorage.getItem('userName');
+        if (userName) {
+            showMenu(userName);
+        }
+    };
+
+    // メニューを表示する関数
+    function showMenu(name) {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('menu-section').style.display = 'block';
+        document.getElementById('display-user-name').innerText = name;
+    }
+</script>
 
 </body>
 </html>
