@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パーツカタログ利用管理 - アライ電機</title>
+    <style>
+        :root {
+            --primary-bg: #f4f7f6;
+            --header-green: #9edb85; /* 写真の緑色のイメージ */
+            --border-color: #999;
+            --row-even: #f9f9f9;
+            --text-red: #d32f2f;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: var(--primary-bg);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* 上部メニューボタン（3枚目の写真再現） */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .menu-btn {
+            background-color: var(--header-green);
+            border: 1px solid #777;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-btn:hover { background-color: #8cc974; }
+        .menu-btn img, .menu-btn .icon { font-size: 40px; display: block; margin-bottom: 5px; }
+
+        /* 利用表（1枚目の写真再現） */
+        .table-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #e0e0e0;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+        }
+
+        .col-num { width: 40px; text-align: center; color: #666; }
+        .col-name { width: 220px; background: #fff; }
+        .col-user { width: 150px; text-align: center; font-weight: bold; }
+
+        /* 使用中（赤字）のスタイル */
+        .is-using { color: var(--text-red); }
+        
+        /* 偶数行の色変え */
+        tr:nth-child(even) { background-color: var(--row-even); }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        .status-free { background: #e0e0e0; color: #666; }
+        .status-busy { background: #ffebee; color: var(--text-red); }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← メインメニューに戻る</a>
+
+    <div class="menu-grid">
+        <div class="menu-btn">
+            <span class="icon">📋</span>
+            <strong>利用表</strong>
+        </div>
+        <div class="menu-btn" style="opacity: 0.6;">
+            <span class="icon">🗄️</span>
+            <strong>一覧管理</strong>
+        </div>
+    </div>
+
+    <h3>パーツカタログ利用表</h3>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>表示順</th>
+                    <th>検索ツール名</th>
+                    <th>受注者</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-num">1</td>
+                    <td class="col-name">トヨタ1（練）</td>
+                    <td class="col-user is-using">永田 里美 <span class="status-badge status-busy">使用中</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">2</td>
+                    <td class="col-name">トヨタ2（多）</td>
+                    <td class="col-user is-using">三輪 陽香 <span class="status-badge status-busy">使用中</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">3</td>
+                    <td class="col-name">いすゞパーツ検索① (PD0120)</td>
+                    <td class="col-user"><span class="status-badge status-free">空き</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">4</td>
+                    <td class="col-name">いすゞパーツ検索② (PD0136)</td>
+                    <td class="col-user"><span class="status-badge status-free">空き</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">5</td>
+                    <td class="col-name">いすゞUOE① (PD0120)</td>
+                    <td class="col-user"><span class="status-badge status-free">空き</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">21</td>
+                    <td class="col-name" style="color: blue;">スズキ(証</td>
+                    <td class="col-user"><span class="status-badge status-free">空き</span></td>
+                </tr>
+                <tr>
+                    <td class="col-num">22</td>
+                    <td class="col-name" style="color: blue;">ホンダ</td>
+                    <td class="col-user"><span class="status-badge status-free">空き</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
