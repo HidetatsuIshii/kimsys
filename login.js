@@ -18,14 +18,12 @@ async function login() {
         const result = await response.json();
 
         if (result.login) {
-            // 認証成功：ブラウザにユーザー名を保存
             localStorage.setItem('userName', result.name);
-            alert(`ログイン成功：${result.name}さん、こんにちは！`);
-            
-            // メインメニュー画面（例: menu.html）へ移動
+            localStorage.setItem('sessionId', result.sessionId); // 追加
+            localStorage.setItem('lastActivity', Date.now());     // 追加
             window.location.href = 'index.html'; 
         } else {
-            alert("IDまたはパスワードが正しくありません");
+            alert(result.message); // 「別の端末でログイン中」などのメッセージを表示
         }
     } catch (error) {
         console.error("通信エラー:", error);
