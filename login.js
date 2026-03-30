@@ -1,4 +1,4 @@
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyhyKzooOgJQUGwcsJnyvxJoyD1jHtQi7HIKCZcJ9JLgsX9dRrZ_IJy78oxbicvWcHEOw/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyYxgGsdlaGo5ADns4EekfMCWv-wLWuNRFGoJS-ICDQuf90wz5ND49cGolpx-Xx7wbHAw/exec';
 
 /**
  * ログイン処理
